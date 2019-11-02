@@ -10,6 +10,7 @@ module.exports = {
       if (existingUser) {
         throw new Error('User exists already.');
       }
+      console.log(args.userInput.password);
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
 
       const user = new User({
@@ -29,6 +30,7 @@ module.exports = {
     if (!user) {
       throw Error('User does not exist');
     }
+    console.log(password);
     const isEqual = await bcrypt.compare(password, user.password);
     if (!isEqual) {
       throw Error('Invalid password');
