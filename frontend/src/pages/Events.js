@@ -9,7 +9,8 @@ import './Events.css';
 class EventsPage extends Component {
   state = {
     creating: false,
-    events: []
+    events: [],
+    loading: false
   };
 
   static contextType = AuthContext;
@@ -105,6 +106,7 @@ class EventsPage extends Component {
   };
 
   fetchEvents() {
+    this.setState({ loading: true });
     const requestBody = {
       query: `
           query {
@@ -138,10 +140,11 @@ class EventsPage extends Component {
       })
       .then(resData => {
         const events = resData.data.events;
-        this.setState({ events: events });
+        this.setState({ events: events, loading: false });
       })
       .catch(err => {
         console.log(err);
+        this.setState({ loading: false });
       });
   }
 
@@ -185,7 +188,11 @@ class EventsPage extends Component {
             </button>
           </div>
         )}
-        <EventList events={this.state.events} authUserId={this.context.userId} />
+        {this.state.loading ? (
+          <p>Loading...</p>
+        ) : (
+          <EventList events={this.state.events} authUserId={this.context.userId} />
+        )}
       </React.Fragment>
     );
   }
