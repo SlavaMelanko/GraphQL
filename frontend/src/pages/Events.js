@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Backdrop from '../components/backdrop/Backdrop';
 import Modal from '../components/modal/Modal';
 import AuthContext from '../context/auth-context';
-
+import EventList from '../components/events/EventList/EventList';
 import './Events.css';
 
 class EventsPage extends Component {
@@ -137,14 +137,6 @@ class EventsPage extends Component {
   }
 
   render() {
-    const eventList = this.state.events.map(event => {
-      return (
-        <li key={event._id} className="events__list-item">
-          {event.title}
-        </li>
-      );
-    });
-
     return (
       <React.Fragment>
         {this.state.creating && <Backdrop />}
@@ -184,7 +176,7 @@ class EventsPage extends Component {
             </button>
           </div>
         )}
-        <ul className="events__list">{eventList}</ul>
+        <EventList events={this.state.events} />
       </React.Fragment>
     );
   }
