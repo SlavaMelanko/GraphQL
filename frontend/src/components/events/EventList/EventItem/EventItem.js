@@ -14,7 +14,9 @@ const eventItem = props => (
       {props.creatorId === props.userId ? (
         <p>Owner</p>
       ) : (
-        <button className="btn">View Details</button>
+        <button className="btn" onClick={props.onDetail.bind(this, props.eventId)}>
+          View Details
+        </button>
       )}
     </div>
   </li>
