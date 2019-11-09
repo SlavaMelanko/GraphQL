@@ -4,6 +4,7 @@ import Backdrop from '../components/backdrop/Backdrop';
 import Modal from '../components/modal/Modal';
 import AuthContext from '../context/auth-context';
 import EventList from '../components/events/EventList/EventList';
+import Spinner from '../components/spinner/Spinner';
 import './Events.css';
 
 class EventsPage extends Component {
@@ -189,7 +190,7 @@ class EventsPage extends Component {
           </div>
         )}
         {this.state.loading ? (
-          <p>Loading...</p>
+          <Spinner />
         ) : (
           <EventList events={this.state.events} authUserId={this.context.userId} />
         )}
