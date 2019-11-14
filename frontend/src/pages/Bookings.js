@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Spinner from '../components/spinner/Spinner';
-import BookingList from '../components/bookings/BookingList/BookingList';
-import AuthContext from '../context/auth-context';
+import Spinner from "../components/spinner/Spinner";
+import BookingList from "../components/bookings/BookingList/BookingList";
+import AuthContext from "../context/auth-context";
 
 class BookingsPage extends Component {
   state = {
@@ -34,17 +34,17 @@ class BookingsPage extends Component {
         `
     };
 
-    fetch('http://localhost:8000/graphql', {
-      method: 'POST',
+    fetch("http://localhost:8000/graphql", {
+      method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.context.token
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.context.token
       }
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
-          throw new Error('Failed!');
+          throw new Error("Failed!");
         }
         return res.json();
       })
@@ -62,26 +62,29 @@ class BookingsPage extends Component {
     this.setState({ isLoading: true });
     const requestBody = {
       query: `
-          mutation {
-            cancelBooking(bookingId: "${bookingId}") {
-             _id
-             title
+          mutation CancelBooking($id: !ID) {
+            cancelBooking(bookingId: $id) {
+              _id
+              title
             }
           }
-        `
+        `,
+      variables: {
+        id: bookingId
+      }
     };
 
-    fetch('http://localhost:8000/graphql', {
-      method: 'POST',
+    fetch("http://localhost:8000/graphql", {
+      method: "POST",
       body: JSON.stringify(requestBody),
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.context.token
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.context.token
       }
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
-          throw new Error('Failed!');
+          throw new Error("Failed!");
         }
         return res.json();
       })
